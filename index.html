@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片预加载-无序</title>
+    
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background: black;
+            padding-top:100px;
+            box-sizing: border-box;
+
+        }
+
+        img {
+            width: 480px;
+            height: 300px;
+        }
+
+        a {
+            background: green;
+            border-radius: 5px;
+            color: #ccc;
+            padding: 5px;
+            box-sizing: content-box;
+            cursor: pointer;
+        }
+
+        .btnContent {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-top:20px;
+        }
+        .img_content{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .loading{
+            width:100%;
+            height: 100%;
+            position:fixed;
+            top:0px;
+            left:0px;
+            background:blue;
+            color:#ccc;
+            text-align: center;
+            /* margin-top:500px; */
+            padding-top:300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="img_content">
+            <img src="http://39.106.24.128/img-loading/img_1.jpg" alt="" id="img">
+        </div>
+
+        <div class="btnContent">
+            <a hrf="#" class="btn" data-control="prev">上一页</a>
+            <a hrf="#" class="btn" data-control="next">下一页</a>
+        </div>
+        <div class="loading">
+            <p class="progess">0%</p>
+        </div>
+    </div>
+    <script src="./js/jquery-2.0.3.js"></script>
+    <script src="./js/preload.js"></script>
+    <!-- <script>
+        var imgs = [
+            'http://39.106.24.128/img-loading/img_1.jpg',
+            'http://39.106.24.128/img-loading/img_2.jpg',
+            'http://39.106.24.128/img-loading/img_3.jpg',
+            'http://39.106.24.128/img-loading/img_4.jpg',
+            'http://39.106.24.128/img-loading/img_5.jpg',
+            'http://39.106.24.128/img-loading/img_6.jpg'
+        ];
+        var index = 0;
+        var len = imgs.length;
+
+        var count = 0;
+        var $progess = $('.progess');
+
+        $.each(imgs,function(i,src){
+            var imgObj = new Image();
+            $(imgObj).on('load error',function(){
+                $progess.html(Math.round((count +1)/len*100) + '%');
+                if(count>= len-1){
+                    $('.loading').hide();
+                    document.title = '1/'+len
+                }
+                count++;
+            })
+
+            imgObj.src = src
+        })
+
+        $('.btn').on('click',function(){
+            if('prev' == $(this).data('control')){
+                index = Math.max(0, --index)
+            }else{
+                index = Math.min(len-1, ++index)
+            }
+            document.title = (index+1) + '/' +len;
+            $('#img').attr('src',imgs[index])
+        })
+    </script> -->
+
+    <script>
+    
+    var imgs = [
+            'http://39.106.24.128/img-loading/img_1.jpg',
+            'http://39.106.24.128/img-loading/img_2.jpg',
+            'http://39.106.24.128/img-loading/img_3.jpg',
+            'http://39.106.24.128/img-loading/img_4.jpg',
+            'http://39.106.24.128/img-loading/img_5.jpg',
+            'http://39.106.24.128/img-loading/img_6.jpg'
+        ];
+        var index = 0;
+        var len = imgs.length;
+
+        var count = 0;
+        var $progess = $('.progess');
+        $.preload(imgs, {
+            each: function(count){
+                $progess.html(Math.round((count +1)/len*100) + '%');
+            },
+            all: function(){
+                $('.loading').hide();
+                document.title = '1/'+len
+            }
+        })
+        $('.btn').on('click',function(){
+            if('prev' == $(this).data('control')){
+                index = Math.max(0, --index)
+            }else{
+                index = Math.min(len-1, ++index)
+            }
+            document.title = (index+1) + '/' +len;
+            $('#img').attr('src',imgs[index])
+        })
+    </script>
+
+</body>
+
+</html>

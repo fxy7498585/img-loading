@@ -22,7 +22,10 @@
                 // $progess.html(Math.round((count +1)/len*100) + '%');
                 opts.each && opts.each(count);
                 if(count>= len-1){
-                    opts.all && opts.all();
+                    setTimeout(function(){
+                        opts.all && opts.all();
+                    }, 700);
+                    
                 }
                 count++;
             })

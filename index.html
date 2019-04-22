@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/jquery-2.0.3.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <title>图片预加载-无序</title>
     
     <style>
@@ -20,7 +23,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            background: black;
+            /* background: black; */
             padding-top:100px;
             box-sizing: border-box;
 
@@ -57,7 +60,7 @@
             position:fixed;
             top:0px;
             left:0px;
-            background:blue;
+            background:#fff;
             color:#ccc;
             text-align: center;
             /* margin-top:500px; */
@@ -77,10 +80,14 @@
             <a hrf="#" class="btn" data-control="next">下一页</a>
         </div>
         <div class="loading">
-            <p class="progess">0%</p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+                  0%
+                </div>
+            </div>
         </div>
     </div>
-    <script src="./js/jquery-2.0.3.js"></script>
+    
     <script src="./js/preload.js"></script>
     <!-- <script>
         var imgs = [
@@ -130,16 +137,24 @@
             'http://39.106.24.128/img-loading/img_3.jpg',
             'http://39.106.24.128/img-loading/img_4.jpg',
             'http://39.106.24.128/img-loading/img_5.jpg',
-            'http://39.106.24.128/img-loading/img_6.jpg'
+            'http://39.106.24.128/img-loading/img_6.jpg',
+            'http://39.106.24.128/img-loading/img_7.jpg',
+            'http://39.106.24.128/img-loading/img_8.jpg',
+            'http://39.106.24.128/img-loading/img_9.jpg',
+            'http://39.106.24.128/img-loading/img_10.jpg',
+            'http://39.106.24.128/img-loading/img_11.jpg',
+            'http://39.106.24.128/img-loading/img_12.jpg'
         ];
         var index = 0;
         var len = imgs.length;
 
         var count = 0;
-        var $progess = $('.progess');
+        var $progess = $('.progress-bar');
         $.preload(imgs, {
             each: function(count){
                 $progess.html(Math.round((count +1)/len*100) + '%');
+                // $progess.attr('aria-valuenow',Math.round((count +1)/len*100))
+                $('.progress-bar').css('width',Math.round((count +1)/len*100) + '%')
             },
             all: function(){
                 $('.loading').hide();
